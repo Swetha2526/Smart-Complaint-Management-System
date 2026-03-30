@@ -1,240 +1,274 @@
-# Complaint Resolution Hub
+# Complaint Resolution Hub - Full Stack
 
-A modern, fully functional complaint resolution and management system built with React, TypeScript, and Tailwind CSS. This is a **localhost-based application** with all features working locally - no external dependencies or API calls required.
+A modern complaint resolution and management system with **separated frontend and backend** architecture.
 
-## 🎯 Features
+## 📁 Project Structure
 
-- **User Authentication**: Role-based login system (User/Admin) with local storage persistence
-- **Dashboard**: Real-time statistics and overview of all complaints
-- **Complaint Management**: 
-  - Submit new complaints with category and description
-  - View all complaints with filtering and search
-  - Update complaint status (Pending → In Progress → Resolved)
-  - Delete complaints
-- **Theme Support**: Dark/Light mode toggle
-- **Responsive Design**: Works seamlessly on desktop, tablet, and mobile
-- **AI-powered Helpline Chatbot**: Get instant help with complaint resolution
-- **Settings Page**: User profile management and preferences
-- **Beautiful UI**: Built with shadcn/ui components and Tailwind CSS animations
+```
+complaint-resolution-hub-main/
+│
+├── frontend/                    # React Frontend Application
+│   ├── src/
+│   │   ├── components/         # React components
+│   │   ├── context/            # State management
+│   │   ├── pages/              # Page components
+│   │   ├── types/              # TypeScript definitions
+│   │   ├── hooks/              # Custom hooks
+│   │   ├── lib/                # Utilities
+│   │   ├── App.tsx             # Main app
+│   │   └── main.tsx            # Entry point
+│   ├── public/                 # Static assets
+│   ├── index.html              # HTML template
+│   ├── package.json            # Frontend dependencies
+│   ├── vite.config.ts          # Vite config
+│   ├── tailwind.config.ts      # Tailwind CSS
+│   ├── tsconfig.json           # TypeScript config
+│   ├── README.md               # Frontend guide
+│   ├── SETUP.md                # Setup instructions
+│   ├── QUICK-START.md          # Quick reference
+│   ├── start-dev.bat           # Windows starter
+│   └── start-dev.sh            # Mac/Linux starter
+│
+├── backend/                     # Express.js Backend API
+│   ├── src/
+│   │   ├── index.js            # Main server
+│   │   ├── config/
+│   │   │   └── database.js     # DB config
+│   │   ├── models/             # (TODO) Database models
+│   │   ├── routes/             # (TODO) API routes
+│   │   ├── controllers/        # (TODO) Route handlers
+│   │   ├── middleware/         # (TODO) Auth, validation
+│   │   └── utils/              # (TODO) Helper functions
+│   ├── .env.example            # Environment template
+│   ├── package.json            # Backend dependencies
+│   └── README.md               # Backend guide
+│
+└── README.md                    # This file
+```
 
 ## 🚀 Quick Start
 
-### Prerequisites
-- Node.js 16.x or higher
-- npm or yarn package manager
-
-### Installation
-
-1. **Navigate to the project directory:**
+### Frontend Setup
 ```bash
-cd complaint-resolution-hub-main
-```
-
-2. **Install dependencies:**
-```bash
+cd frontend
 npm install
-```
-
-3. **Start the development server:**
-```bash
 npm run dev
 ```
+Frontend runs on: **http://localhost:5173/**
 
-4. **Open your browser and visit:**
-```
-http://localhost:5173/
-```
-
-## 📝 Available Scripts
-
-### Development
+### Backend Setup
 ```bash
-npm run dev        # Start development server with hot reload
-npm run preview    # Preview production build locally
+cd backend
+npm install
+cp .env.example .env
+npm run dev
+```
+Backend runs on: **http://localhost:5000**
+
+## ✨ Features
+
+### Frontend (Currently Working)
+- ✅ User Authentication (Local Storage)
+- ✅ Dashboard with Statistics
+- ✅ Complaint Management (CRUD)
+- ✅ Theme Support (Dark/Light)
+- ✅ AI Helpline Chat
+- ✅ User Settings
+- ✅ Responsive Design
+- ✅ Sample Data Pre-loaded
+
+### Backend (Ready for Implementation)
+- 🔲 Express.js API Server
+- 🔲 MongoDB Database
+- 🔲 JWT Authentication
+- 🔲 Complaint Endpoints
+- 🔲 User Management
+- 🔲 Data Persistence
+- 🔲 CORS Configuration
+- 🔲 Error Handling
+
+## 🎯 Frontend & Backend Communication
+
+### Current Flow (localStorage)
+```
+Frontend (React) ←→ localStorage
 ```
 
-### Production
+### Future Flow (with Backend)
+```
+Frontend (React) ←→ Backend API (Express) ←→ MongoDB Database
+                    http://localhost:5000
+```
+
+### Update Frontend to Use Backend
+In `frontend/src/context/ComplaintContext.tsx`:
+```javascript
+// Replace localStorage calls with API calls
+const API_BASE_URL = 'http://localhost:5000/api';
+
+// Example:
+const response = await fetch(`${API_BASE_URL}/complaints`);
+const data = await response.json();
+```
+
+## 📋 Login Credentials
+
+- **Email:** `demo@example.com` (any valid email)
+- **Password:** `password123` (6+ characters)
+- **Role:** User or Admin
+
+## 🛠️ Technology Stack
+
+### Frontend
+- React 18.3
+- TypeScript 5.8
+- Vite 8.0
+- Tailwind CSS 3.4
+- React Router v6
+- Framer Motion
+- React Hook Form + Zod
+- shadcn/ui Components
+
+### Backend (Recommended)
+- **Runtime:** Node.js 16+
+- **Framework:** Express.js
+- **Database:** MongoDB + Mongoose
+- **Authentication:** JWT
+- **Validation:** Joi or Zod
+- **Testing:** Jest
+- **Environment:** dotenv
+
+## 📝 Development Workflow
+
+### Step 1: Start Frontend
 ```bash
-npm run build      # Build optimized production bundle
+cd frontend
+npm run dev
 ```
+Visit: http://localhost:5173/
 
-### Testing & Quality
+### Step 2: Start Backend (when ready)
 ```bash
-npm run test       # Run tests once
-npm run test:watch # Run tests in watch mode
-npm run lint       # Check code for linting errors
+cd backend
+npm run dev
 ```
+Running on: http://localhost:5000/
 
-## 🔐 Login Credentials
+### Step 3: Update Frontend to Connect to Backend
+Replace mock data with API calls pointing to `http://localhost:5000/api`
 
-For demo purposes, you can log in with any valid email format and password:
-
-**Test Credentials:**
-- Email: `demo@example.com` (or any valid email format)
-- Password: `password123` (minimum 6 characters)
-- Role: Select **User** or **Admin** from the tabs
-
-**Note:** All data is stored locally in browser storage and will persist across sessions.
-
-## 📂 Project Structure
+## 🔄 Data Flow
 
 ```
-src/
-├── components/           # Reusable React components
-│   ├── ui/              # shadcn/ui components
-│   ├── AppLayout.tsx    # Main app layout
-│   ├── AppSidebar.tsx   # Navigation sidebar
-│   ├── HelplineChatbot.tsx  # AI chatbot component
-│   └── ...
-├── context/             # React Context for state management
-│   ├── AuthContext.tsx      # Authentication state
-│   ├── ComplaintContext.tsx # Complaint data management
-│   ├── ProfileContext.tsx   # User profile state
-│   └── ThemeContext.tsx     # Theme/Dark mode state
-├── pages/               # Page components
-│   ├── Dashboard.tsx    # Main dashboard
-│   ├── Complaints.tsx   # Complaints list/management
-│   ├── SubmitComplaint.tsx  # Submit new complaint
-│   ├── SettingsPage.tsx     # User settings
-│   ├── Login.tsx        # Login page
-│   └── NotFound.tsx     # 404 page
-├── types/               # TypeScript type definitions
-├── lib/                 # Utility functions
-├── hooks/               # Custom React hooks
-└── styles/              # Global styles
+User Interaction
+    ↓
+Frontend Component
+    ↓
+React Context / State
+    ↓
+API Call to Backend
+    ↓
+Express Route Handler
+    ↓
+Database Query (MongoDB)
+    ↓
+Response to Frontend
+    ↓
+UI Update
 ```
 
-## 🎨 Tech Stack
+## 📦 Frontend Scripts
 
-- **Frontend Framework**: React 18.3.1
-- **Language**: TypeScript 5.8
-- **Build Tool**: Vite 8.0.0
-- **Styling**: Tailwind CSS 3.4 + shadcn/ui
-- **State Management**: React Context API
-- **Routing**: React Router v6
-- **Animations**: Framer Motion
-- **Forms**: React Hook Form with Zod validation
-- **UI Components**: Radix UI primitives
-- **Icons**: Lucide React
-- **Testing**: Vitest + Playwright
-- **Linting**: ESLint
-
-## 💾 Data Storage
-
-All data is stored locally using:
-- **localStorage**: For authentication and user preferences
-- **React Context**: For real-time state management
-
-**Sample Data Provided:**
-The application comes with 3 sample complaints to demonstrate functionality. You can add, edit, and delete complaints freely.
-
-## 🧪 Testing
-
-Run tests with:
 ```bash
-npm run test
+npm run dev          # Start dev server
+npm run build        # Build for production
+npm run preview      # Preview production build
+npm run lint         # Check code quality
+npm run test         # Run tests
+npm run test:watch   # Run tests in watch mode
 ```
 
-Run tests in watch mode:
+## 📦 Backend Scripts
+
 ```bash
-npm run test:watch
+npm run dev          # Start dev server with watch
+npm start            # Start production server
+npm test             # Run tests
 ```
 
-## 🔧 Configuration Files
+## 🔐 Security Considerations
 
-- `vite.config.ts` - Vite build configuration
-- `tsconfig.json` - TypeScript configuration
-- `tailwind.config.ts` - Tailwind CSS customization
-- `playwright.config.ts` - E2E testing configuration
-- `eslint.config.js` - Linting rules
+### Frontend
+- Current: Local storage (demo purposes only)
+- Production: JWT tokens, HttpOnly cookies
 
-## 📱 Features in Detail
+### Backend
+- Implement JWT authentication
+- Use environment variables for secrets
+- Add request validation
+- Implement rate limiting
+- Use HTTPS in production
+- Sanitize inputs
+- Add CORS restrictions
 
-### Dashboard
-- Shows statistics for Total, Pending, In Progress, and Resolved complaints
-- Displays recent complaints in a table format
-- Real-time updates as complaints status changes
+## 📚 Documentation
 
-### Complaint Management
-- **Submit**: Fill form with name, email, category, and description
-- **View**: Browse all complaints with ID, category, and status
-- **Update**: Change complaint status through dropdown menus
-- **Delete**: Remove complaints from the system
+- **Frontend:** See `frontend/README.md` for detailed frontend documentation
+- **Backend:** See `backend/README.md` for backend setup and API documentation
+- **Setup:** See `frontend/SETUP.md` for detailed setup instructions
+- **Quick Start:** See `frontend/QUICK-START.md` for quick reference
 
-### User Roles
-- **User**: Can submit and view their complaints
-- **Admin**: Has full access to manage all complaints
+## 🌐 Deployment
 
-### Theme Support
-- Toggle between Light and Dark modes
-- Preference persists across sessions
+### Frontend Deployment
+- Build: `cd frontend && npm run build`
+- Output: `frontend/dist/` folder
+- Deploy to: Netlify, Vercel, GitHub Pages, AWS S3
+
+### Backend Deployment
+- Build: Already Node.js code
+- Deploy to: Heroku, Railway, AWS, DigitalOcean, Azure
 
 ## 🐛 Troubleshooting
 
-### Dev Server Won't Start
+### Frontend Won't Start
 ```bash
-# Clear node_modules and reinstall
+cd frontend
 rm -rf node_modules package-lock.json
 npm install
 npm run dev
 ```
 
-### Port 5173 Already in Use
-```bash
-# Kill the process or modify vite.config.ts to use different port
-```
+### Port 5173 in Use
+Edit `frontend/vite.config.ts` and change port
 
-### Styles Not Loading
-```bash
-# Rebuild Tailwind CSS
-npm run build
-```
+### Port 5000 in Use (Backend)
+Edit `backend/.env` and change PORT
 
-## 🌐 Hosting & Deployment
+### MongoDB Connection Error
+Ensure MongoDB is running on localhost:27017
 
-To deploy the production build:
+## 📞 Support
 
-1. Build the project:
-```bash
-npm run build
-```
+- Frontend Issues: Check `frontend/README.md`
+- Backend Setup: Check `backend/README.md`
+- General: See this README
 
-2. The `dist/` folder contains the production-ready files that can be hosted:
-   - On any static hosting service (Vercel, Netlify, GitHub Pages)
-   - On your own server with a simple HTTP server
+## 🎓 Next Steps
 
-3. Example: Simple local preview
-```bash
-npm run preview
-```
+1. **Explore Frontend:** Run it and test all features
+2. **Learn Backend:** Set up and implement endpoints
+3. **Connect:** Update frontend to use backend API
+4. **Enhance:** Add more features as needed
+5. **Deploy:** Host both on production servers
 
-## 📞 Support Features
+## ✅ Project Status
 
-- **AI Helpline Chat**: Click the chat icon to get instant help
-- **Settings Page**: Manage your account and preferences
-- **Responsive Design**: Works on all screen sizes
-
-## ⚙️ Performance Tips
-
-- The application runs entirely on the client-side
-- No network calls or API latency delays
-- Data persistence happens instantly via browser storage
-- Lightning-fast load times and perfectly smooth interactions
-
-## 📄 License
-
-This project is open source and available under your preferred license.
-
-## 🎓 Learning Resources
-
-This project demonstrates:
-- Modern React patterns with hooks and context API
-- TypeScript best practices
-- Tailwind CSS responsive design
-- Component-based architecture
-- Form handling and validation with React Hook Form
-- State management without external libraries
+- ✅ Frontend: Production Ready
+- 🔲 Backend: Ready for Implementation
+- 🔲 Integration: Ready for Connection
+- 🔲 Database: Ready for Setup
 
 ---
 
-**Happy coding! 🚀** For any issues or questions, please check the project structure and ensure all dependencies are installed correctly.
+**Happy coding! 🚀** Explore both frontend and backend to understand the full-stack architecture.
