@@ -74,8 +74,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUserRole(role);
       setUserName(authData.name);
       setUserEmail(email);
-    } catch (error) {
-      throw error;
     } finally {
       setIsLoading(false);
     }
